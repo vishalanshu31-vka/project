@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Are You Free?</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #ffd6e7, #e0f7ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .screen {
+      text-align: center;
+      padding: 20px;
+      width: 100%;
+      max-width: 400px;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.9);
+      position: absolute;
+    }
+
+    h1 {
+      font-weight: 600;
+      margin-bottom: 30px;
+      color: #444;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .yes-btn {
+      background: #ff7aa2;
+      color: white;
+    }
+
+    .yes-btn:hover {
+      background: #ff5c8a;
+      transform: scale(1.05);
+    }
+
+    .no-btn {
+      background: #ffffff;
+      color: #555;
+      position: relative;
+    }
+
+    .no-btn:hover {
+      background: #f2f2f2;
+    }
+
+    .whatsapp-btn {
+      margin-top: 20px;
+      background: #25d366;
+      color: white;
+      font-size: 16px;
+    }
+
+    .whatsapp-btn:hover {
+      background: #1ebe5d;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 22px;
+      }
+
+      button {
+        width: 120px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- First Screen -->
+  <div class="screen" id="firstScreen">
+    <h1>Are you free?</h1>
+    <div class="btn-group">
+      <button class="yes-btn" onclick="showSecondScreen()">Yes</button>
+      <button class="no-btn" id="noBtn">No</button>
+    </div>
+  </div>
+
+  <!-- Second Screen -->
+  <div class="screen hidden" id="secondScreen">
+    <h1>Let’s have a chit chat 💬</h1>
+    <button class="whatsapp-btn" onclick="openWhatsApp()">Start Chat on WhatsApp</button>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+
+    function moveButton() {
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 20);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 20);
+
+      noBtn.style.position = "absolute";
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+      noBtn.style.transition = "all 0.3s ease";
+    }
+
+    noBtn.addEventListener("mouseenter", moveButton);
+    noBtn.addEventListener("click", moveButton);
+    noBtn.addEventListener("touchstart", moveButton);
+
+    function showSecondScreen() {
+      document.getElementById("firstScreen").classList.add("hidden");
+      document.getElementById("secondScreen").classList.remove("hidden");
+    }
+
+    function openWhatsApp() {
+      const phoneNumber = "9938235909"; // Replace with real number
+      const message = encodeURIComponent("Hey! Let's have a chit chat 💬");
+      const url = `https://wa.me/${phoneNumber}?text=${message}`;
+      window.open(url, "_blank");
+    }
+  </script>
+
+</body>
+</html>
